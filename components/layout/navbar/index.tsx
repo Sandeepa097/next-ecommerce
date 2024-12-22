@@ -7,7 +7,7 @@ import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
 import Search, { SearchSkeleton } from './search';
 
-const { SITE_NAME } = process.env;
+const { SITE_NAME, ALLOW_CART } = process.env;
 
 export async function Navbar() {
   const menu = await getMenu('next-js-frontend-header-menu');
@@ -52,9 +52,11 @@ export async function Navbar() {
             <Search />
           </Suspense>
         </div>
-        <div className="flex justify-end md:w-1/3">
-          <CartModal />
-        </div>
+        {ALLOW_CART === 'true' && (
+          <div className="flex justify-end md:w-1/3">
+            <CartModal />
+          </div>
+        )}
       </div>
     </nav>
   );

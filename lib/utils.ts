@@ -11,7 +11,10 @@ export const ensureStartsWith = (stringToCheck: string, startsWith: string) =>
   stringToCheck.startsWith(startsWith) ? stringToCheck : `${startsWith}${stringToCheck}`;
 
 export const validateEnvironmentVariables = () => {
-  const requiredEnvironmentVariables = ['SHOPIFY_STORE_DOMAIN', 'SHOPIFY_STOREFRONT_ACCESS_TOKEN'];
+  const requiredEnvironmentVariables = [
+    'PROVIDER_STORE_DOMAIN',
+    'PROVIDER_STOREFRONT_ACCESS_TOKEN'
+  ];
   const missingEnvironmentVariables = [] as string[];
 
   requiredEnvironmentVariables.forEach((envVar) => {
@@ -29,11 +32,11 @@ export const validateEnvironmentVariables = () => {
   }
 
   if (
-    process.env.SHOPIFY_STORE_DOMAIN?.includes('[') ||
-    process.env.SHOPIFY_STORE_DOMAIN?.includes(']')
+    process.env.PROVIDER_STORE_DOMAIN?.includes('[') ||
+    process.env.PROVIDER_STORE_DOMAIN?.includes(']')
   ) {
     throw new Error(
-      'Your `SHOPIFY_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.'
+      'Your `PROVIDER_STORE_DOMAIN` environment variable includes brackets (ie. `[` and / or `]`). Your site will not work with them there. Please remove them.'
     );
   }
 };

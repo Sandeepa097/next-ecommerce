@@ -50,11 +50,11 @@ import {
   ShopifyUpdateCartOperation
 } from './types';
 
-const domain = process.env.SHOPIFY_STORE_DOMAIN
-  ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
+const domain = process.env.PROVIDER_STORE_DOMAIN
+  ? ensureStartsWith(process.env.PROVIDER_STORE_DOMAIN, `${process.env.PROVIDER_STORE_PROTOCOL}://`)
   : '';
 const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+const key = process.env.PROVIDER_STOREFRONT_ACCESS_TOKEN!;
 
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
@@ -433,7 +433,7 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
   const isCollectionUpdate = collectionWebhooks.includes(topic);
   const isProductUpdate = productWebhooks.includes(topic);
 
-  if (!secret || secret !== process.env.SHOPIFY_REVALIDATION_SECRET) {
+  if (!secret || secret !== process.env.PROVIDER_REVALIDATION_SECRET) {
     console.error('Invalid revalidation secret.');
     return NextResponse.json({ status: 401 });
   }
