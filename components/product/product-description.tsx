@@ -1,8 +1,11 @@
 import { AddToCart } from 'components/cart/add-to-cart';
+import { ContactToBuy } from 'components/contact-to-buy';
 import Price from 'components/price';
 import Prose from 'components/prose';
 import { Product } from 'lib/provider/types';
 import { VariantSelector } from './variant-selector';
+
+const { ALLOW_CART } = process.env;
 
 export function ProductDescription({ product }: { product: Product }) {
   return (
@@ -23,7 +26,7 @@ export function ProductDescription({ product }: { product: Product }) {
           html={product.descriptionHtml}
         />
       ) : null}
-      <AddToCart product={product} />
+      {ALLOW_CART === 'true' ? <AddToCart product={product} /> : <ContactToBuy product={product} />}
     </>
   );
 }
