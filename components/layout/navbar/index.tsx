@@ -19,7 +19,7 @@ export async function Navbar() {
           <MobileMenu menu={menu} />
         </Suspense>
       </div>
-      <div className="flex w-full items-center">
+      <div className="flex w-full items-center gap-x-8">
         <div className="flex w-full md:w-1/3">
           <Link
             href="/"
@@ -47,7 +47,7 @@ export async function Navbar() {
             </ul>
           ) : null}
         </div>
-        <div className="hidden justify-center md:flex md:w-1/3">
+        <div className="hidden flex-1 justify-center md:flex">
           <Suspense fallback={<SearchSkeleton />}>
             <Search />
           </Suspense>
