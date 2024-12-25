@@ -163,13 +163,16 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
 const reshapeImages = (images: Connection<Image>, productTitle: string) => {
   const flattened = removeEdgesAndNodes(images);
 
-  return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)?.[1];
-    return {
-      ...image,
-      altText: image.altText || `${productTitle} - ${filename}`
-    };
-  });
+  return flattened.map((image) => reshapeImage(image, productTitle));
+};
+
+const reshapeImage = (image: Image, productTitle: string) => {
+  const filename = image.url.match(/.*\/(.*)\..*/)?.[1];
+  return {
+    ...image,
+    url: `${domain}${image.url}`,
+    altText: image.altText || `${productTitle} - ${filename}`
+  };
 };
 
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
@@ -181,6 +184,7 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
 
   return {
     ...rest,
+    featuredImage: reshapeImage(product.featuredImage, product.title),
     images: reshapeImages(images, product.title),
     variants: removeEdgesAndNodes(variants)
   };
