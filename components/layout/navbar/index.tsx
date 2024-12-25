@@ -20,7 +20,7 @@ export async function Navbar() {
         </Suspense>
       </div>
       <div className="flex w-full items-center gap-x-8">
-        <div className="flex w-full md:w-1/3">
+        <div className={`flex w-full md:w-${ALLOW_CART === 'true' ? '1/3' : '2/3'}`}>
           <Link
             href="/"
             prefetch={true}

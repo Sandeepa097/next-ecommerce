@@ -77,6 +77,7 @@ export async function shopifyFetch<T>({
       headers: {
         'Content-Type': 'application/json',
         'X-Shopify-Storefront-Access-Token': key,
+        'Cache-Control': 'max-age=300',
         ...headers
       },
       body: JSON.stringify({
@@ -300,7 +301,7 @@ export async function getCollectionProducts({
     variables: {
       handle: collection,
       reverse,
-      sortKey: sortKey === 'CREATED_AT' ? 'CREATED' : sortKey
+      sortKey: sortKey
     }
   });
 
