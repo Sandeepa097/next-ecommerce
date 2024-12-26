@@ -59,7 +59,7 @@ const key = process.env.PROVIDER_STOREFRONT_ACCESS_TOKEN!;
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
 export async function shopifyFetch<T>({
-  cache = 'force-cache',
+  cache = 'default',
   headers,
   query,
   tags,
@@ -181,11 +181,14 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
   }
 
   const { images, variants, ...rest } = product;
+  const imagesList = !images.edges.some((edge) => edge.node.url === product.featuredImage.url)
+    ? { edges: [{ node: product.featuredImage }, ...images.edges] }
+    : images;
 
   return {
     ...rest,
     featuredImage: reshapeImage(product.featuredImage, product.title),
-    images: reshapeImages(images, product.title),
+    images: reshapeImages(imagesList, product.title),
     variants: removeEdgesAndNodes(variants)
   };
 };
