@@ -189,7 +189,8 @@ const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean =
     ...rest,
     featuredImage: reshapeImage(product.featuredImage, product.title),
     images: reshapeImages(imagesList, product.title),
-    variants: removeEdgesAndNodes(variants)
+    variants: removeEdgesAndNodes(variants),
+    orderUrl: `${domain}/api/products/${product.id}/order`
   };
 };
 

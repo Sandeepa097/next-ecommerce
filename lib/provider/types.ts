@@ -133,6 +133,7 @@ export type ShopifyProduct = {
   seo: SEO;
   tags: string[];
   updatedAt: string;
+  orderUrl?: string;
 };
 
 export type ShopifyCartOperation = {

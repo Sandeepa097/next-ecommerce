@@ -65,7 +65,9 @@ export function ContactToBuy({ product }: { product: Product }) {
   const selectedVariantId = variant?.id || defaultVariantId;
 
   const placeOrder = () => {
-    console.log('Placing for: ', selectedVariantId);
+    if (product.orderUrl) {
+      window.open(`${product.orderUrl}?url=${encodeURIComponent(window.location.href)}`, '_blank');
+    }
   };
 
   return (
