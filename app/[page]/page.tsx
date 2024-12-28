@@ -38,7 +38,7 @@ export default async function Page(props: { params: Promise<{ page: string }> })
           year: 'numeric',
           month: 'long',
           day: 'numeric'
-        }).format(new Date(page.updatedAt))}.`}
+        }).format(new Date(Number(page.updatedAt)))}.`}
       </p>
     </>
   );
